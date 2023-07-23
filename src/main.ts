@@ -8,7 +8,7 @@ async function bootstrap() {
   generateSwaggerFile(app);
   // app.useLogger(app.get(Logger));
   app.useGlobalPipes(new ValidationPipe());
-  console.log(process.env.PORT)
+  console.log(process.env.PORT);
   const port = process.env.PORT ? parseInt(process.env.PORT) : 2711;
   await app.listen(port);
   console.log(`App runs on port ${port}`);

@@ -11,6 +11,7 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { LoggerModule } from 'nestjs-pino';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { TransactionsController } from './modules/transactions/transactions.controller';
+import { CacheMiddleware } from './middleware/cache.middleware';
 
 @Module({
   imports: [
@@ -50,5 +51,6 @@ import { TransactionsController } from './modules/transactions/transactions.cont
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes(TransactionsController);
+    consumer.apply(CacheMiddleware).forRoutes(TransactionsController);
   }
 }
