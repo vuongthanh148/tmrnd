@@ -1,6 +1,7 @@
 import * as process from 'process';
 
-export const GlobalConfig: Configs = {
+export default () => ({
+  NODE_ENV: process.env.NODE_ENV,
   app: {
     port: parseInt(process.env.PORT) || 2711,
   },
@@ -12,35 +13,13 @@ export const GlobalConfig: Configs = {
     port: parseInt(process.env.REDIS_PORT, 10),
   },
   postgres: {
+    type: 'postgres',
     host: process.env.POSTGRES_HOST,
     port: parseInt(process.env.POSTGRES_PORT, 10),
     username: process.env.POSTGRES_USERNAME,
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DATABASE,
+    entities: [__dirname + '/modules/**/*.entity{.ts,.js}'],
+    synchronize: true,
   },
-};
-
-export type Configs = {
-  app: AppConfig;
-  auth: AuthConfig;
-  redis: RedisConfig;
-  postgres: PostgresConfig;
-};
-
-export type AppConfig = {
-  port: number;
-};
-export type AuthConfig = {
-  jwtSecret: string;
-};
-export type RedisConfig = {
-  host: string;
-  port: number;
-};
-export type PostgresConfig = {
-  host: string;
-  port: number;
-  username?: string;
-  password?: string;
-  database?: string;
-};
+});
