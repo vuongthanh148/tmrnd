@@ -1,35 +1,19 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import { CreateTransactionDto } from './dtos/create-transaction.dto';
 import { TransactionsService } from './transactions.service';
-import { ApiBody, ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { UseAppGuard } from '../auth/decorators/use-app-guard.decorator';
+import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ResponseInterceptor } from 'src/interceptors/transaction.interceptor'
+import { UseAppGuard } from '../auth/decorators/use-app-guard.decorator';;
 
 @ApiTags('transactions')
 @Controller('transactions')
 @UseAppGuard()
+@UseInterceptors(ResponseInterceptor)
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) { }
 
   @Post()
   @ApiOperation({ summary: 'Create a new transaction' })
-  // @ApiBody({
-  //   schema: {
-  //     type: 'object',
-  //     properties: {
-  //       supplierIds: { type: [Number] },
-  //       departure_post_code: { type: 'number' },
-  //       arrival_post_code: { type: 'number' },
-  //       departure_state_name: { type: 'string' },
-  //       departure_country_code: { type: 'string' },
-  //       arrival_state_name: { type: 'string' },
-  //       arrival_country_code: { type: 'string' },
-  //       item_length: { type: 'number' },
-  //       item_width: { type: 'number' },
-  //       item_height: { type: 'number' },
-  //       item_weight: { type: 'number' },
-  //     },
-  //   },
-  // })
   @ApiCreatedResponse({
     description:
       'The create transaction request has been successfully processed',

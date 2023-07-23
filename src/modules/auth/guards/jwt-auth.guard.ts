@@ -7,7 +7,6 @@ import {
 import * as jwt from 'jsonwebtoken';
 
 import { JwtPayload } from '../jwt/jwt-payload';
-import { GlobalConfig } from 'src/config/global.config';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
