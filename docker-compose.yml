@@ -1,0 +1,74 @@
+version: '3'
+services:
+  gateway:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    image: gateway:latest
+    container_name: gateway
+    environment:
+      PORT: '2711'
+      POSTGRES_USERNAME: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_HOST: 'postgres'
+      POSTGRES_PORT: '5432'
+      POSTGRES_DATABASE: 'gateway'
+      REDIS_PORT: '6379'
+      REDIS_HOST: 'redis'
+    ports:
+      - "2711:2711"
+    volumes:
+      - ./logs:/usr/src/app/src/logs
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - digital_backend_assignment
+
+  # postgres database
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=gateway
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/data/postgres123
+    networks:
+      - digital_backend_assignment
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  #redis database
+  redis:
+    container_name: redis
+    image: redis:4-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - digital_backend_assignment
+    volumes:
+      - ./data/redis:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "redis_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  digital_backend_assignment:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
+  minio:
+    driver: local
