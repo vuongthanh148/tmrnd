@@ -45,3 +45,7 @@ I will use api create Transaction to create request send to provider and hanlde 
 2. Move to the directory containing the code and run command: `docker-compose up -d` to start project
 3. Then you can access domain `localhost:2711/api` to view the swagger documantation
 4. Call api to create new supplier and then create new transaction
+
+
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6IlVTRVIifQ._ejexsLxujrjAOlef5LfU8GjPhigK96y9qtUcNaxEKc

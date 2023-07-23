@@ -1,11 +1,14 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateTransactionDto } from './dtos/create-transaction.dto';
 import { TransactionsService } from './transactions.service';
-import { ApiBody, ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiBody, ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { UseAppGuard } from '../auth/decorators/use-app-guard.decorator';
 
+@ApiTags('transactions')
 @Controller('transactions')
+@UseAppGuard()
 export class TransactionsController {
-  constructor(private readonly transactionsService: TransactionsService) {}
+  constructor(private readonly transactionsService: TransactionsService) { }
 
   @Post()
   @ApiOperation({ summary: 'Create a new transaction' })

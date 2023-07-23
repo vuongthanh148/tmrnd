@@ -27,6 +27,8 @@ paths:
           description: The create suppplier request has been successfully processed
       tags: &ref_0
         - supplier
+      security: &ref_1
+        - bearer: []
     get:
       operationId: SuppliersController_readSupplier
       summary: Get suppliers
@@ -71,6 +73,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Supplier'
       tags: *ref_0
+      security: *ref_1
   /suppliers/{id}:
     put:
       operationId: SuppliersController_updateSupplier
@@ -107,6 +110,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UpdateResult'
       tags: *ref_0
+      security: *ref_1
     delete:
       operationId: SuppliersController_deleteSupplier
       summary: Delete a supplier
@@ -123,6 +127,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/'
       tags: *ref_0
+      security: *ref_1
   /transactions:
     post:
       operationId: TransactionsController_createTransaction
@@ -137,6 +142,10 @@ paths:
       responses:
         '201':
           description: The create transaction request has been successfully processed
+      tags:
+        - transactions
+      security:
+        - bearer: []
 info:
   title: Digital Backend Assignment
   description: The Digital Backend Assignment API description
@@ -147,6 +156,14 @@ tags:
     description: ''
 servers: []
 components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      name: JWT
+      description: Enter JWT token
+      in: header
   schemas:
     CreateSupplierDto:
       type: object

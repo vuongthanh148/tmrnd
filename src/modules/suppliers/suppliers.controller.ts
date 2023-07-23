@@ -21,11 +21,13 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { UseAppGuard } from '../auth/decorators/use-app-guard.decorator';
 
 @ApiTags('supplier')
 @Controller('suppliers')
+@UseAppGuard()
 export class SuppliersController {
-  constructor(private readonly suppliersService: SuppliersService) {}
+  constructor(private readonly suppliersService: SuppliersService) { }
 
   @Post()
   @ApiOperation({ summary: 'Create a new supplier' })
