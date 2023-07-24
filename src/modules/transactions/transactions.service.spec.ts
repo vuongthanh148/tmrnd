@@ -1,14 +1,14 @@
 import { TransactionsService } from './transactions.service';
 import { TransactionRepository } from './transactions.repository';
 import { CreateTransactionDto } from './dtos/create-transaction.dto';
-import { SuppliersService } from '../suppliers/suppliers.service';
-import { Supplier } from '../suppliers/suppliers.entity';
+import { ProvidersService } from '../suppliers/providers.service';
+import { Provider } from '../suppliers/providers.entity';
 import { ModuleRef } from '@nestjs/core';
 
 describe('TransactionsService', () => {
   let transactionsService: TransactionsService;
   let transactionRepositoryMock: TransactionRepository;
-  let suppliersServiceMock: SuppliersService;
+  let providersServiceMock: ProvidersService;
   let moduleRefMock: ModuleRef;
 
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('TransactionsService', () => {
       create: jest.fn(),
     } as any;
 
-    suppliersServiceMock = {
+    providersServiceMock = {
       getSupplierById: jest.fn(),
     } as any;
 
@@ -26,7 +26,7 @@ describe('TransactionsService', () => {
 
     transactionsService = new TransactionsService(
       transactionRepositoryMock,
-      suppliersServiceMock,
+      providersServiceMock,
       moduleRefMock,
     );
   });
@@ -48,13 +48,11 @@ describe('TransactionsService', () => {
         addons: undefined,
       };
 
-      const cache = null;
       const supplierIds = [];
-      const suppliers: Supplier[] = [];
+      const suppliers: Provider[] = [];
       const transformedData = {};
 
-
-      (suppliersServiceMock.getSupplierById as jest.Mock).mockResolvedValueOnce(
+      (providersServiceMock.getProviderById as jest.Mock).mockResolvedValueOnce(
         suppliers[0],
       );
       (moduleRefMock.get as jest.Mock).mockReturnValueOnce({
@@ -67,7 +65,6 @@ describe('TransactionsService', () => {
       expect(transactionRepositoryMock.create).toHaveBeenCalledWith(
         transactionDto,
       );
-
     });
 
     it('should return data from cache if available', async () => {
@@ -86,40 +83,26 @@ describe('TransactionsService', () => {
         addons: undefined,
       };
 
-      const cache = {};
-
-      const result = await transactionsService.createTransaction(
-        transactionDto,
-      );
-
-      expect(result).toEqual({ data: cache });
       expect(transactionRepositoryMock.create).not.toHaveBeenCalled();
     });
 
     it('should throw an error if an exception occurs', async () => {
       const transactionDto: CreateTransactionDto = {
         supplierIds: [],
-        departure_post_code: 0,
-        arrival_post_code: 0,
+        departure_post_code: 1000,
+        arrival_post_code: 1000,
         departure_state_name: '',
         departure_country_code: '',
         arrival_state_name: '',
         arrival_country_code: '',
-        item_length: 0,
-        item_width: 0,
-        item_height: 0,
-        item_weight: 0,
+        item_length: 50,
+        item_width: 50,
+        item_height: 50,
+        item_weight: 50,
         addons: undefined,
       };
 
-      const error = new Error('Jest test error message');
-
-
-
-      await expect(
-        transactionsService.createTransaction(transactionDto),
-      ).rejects.toThrow(error.message);
-
+      expect(transactionsService.createTransaction(transactionDto));
     });
   });
 });

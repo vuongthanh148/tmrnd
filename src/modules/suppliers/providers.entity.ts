@@ -1,4 +1,4 @@
-import { SupplierStatus } from '../../utils/constant';
+import { ProviderStatus } from '../../utils/constant';
 import {
   BaseEntity,
   Column,
@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Supplier extends BaseEntity {
+export class Provider extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -33,7 +33,7 @@ export class Supplier extends BaseEntity {
   @Column({ length: 500, nullable: true })
   apiKey: string;
 
-  @Column({ default: SupplierStatus.ACTIVE })
+  @Column({ default: ProviderStatus.ACTIVE })
   status: boolean;
 
   @CreateDateColumn({

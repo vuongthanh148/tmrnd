@@ -7,7 +7,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { generateSwaggerFile } from './swagger';
 
 async function bootstrap() {
-  console.log(GlobalConfig.app.port)
+  console.log(GlobalConfig.app.port);
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   generateSwaggerFile(app);
   // app.useLogger(app.get(Logger));

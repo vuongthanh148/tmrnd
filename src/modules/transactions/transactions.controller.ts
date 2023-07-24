@@ -2,15 +2,15 @@ import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
 import { CreateTransactionDto } from './dtos/create-transaction.dto';
 import { TransactionsService } from './transactions.service';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { ResponseInterceptor } from 'src/interceptors/transaction.interceptor'
-import { UseAppGuard } from '../auth/decorators/use-app-guard.decorator';;
+import { ResponseInterceptor } from 'src/interceptors/transaction.interceptor';
+import { UseAppGuard } from '../auth/decorators/use-app-guard.decorator';
 
 @ApiTags('transactions')
 @Controller('transactions')
 @UseAppGuard()
 @UseInterceptors(ResponseInterceptor)
 export class TransactionsController {
-  constructor(private readonly transactionsService: TransactionsService) { }
+  constructor(private readonly transactionsService: TransactionsService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create a new transaction' })

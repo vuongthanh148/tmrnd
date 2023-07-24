@@ -1,4 +1,4 @@
-export enum SupplierStatus {
+export enum ProviderStatus {
   INACTIVE,
   ACTIVE,
 }

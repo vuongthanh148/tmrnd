@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TransactionsController } from './transactions.controller';
 import { TransactionsService } from './transactions.service';
-import { SuppliersModule } from '../suppliers/suppliers.module';
+import { SuppliersModule } from '../suppliers/providers.module';
 import { HttpModule } from '@nestjs/axios';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Transaction } from './transactions.entity';

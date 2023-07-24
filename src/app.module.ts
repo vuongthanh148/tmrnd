@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './utils/exceptions/exception';
 import { ConfigModule } from '@nestjs/config';
-import { SuppliersModule } from './modules/suppliers/suppliers.module';
+import { SuppliersModule } from './modules/suppliers/providers.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TransactionsModule } from './modules/transactions/transactions.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';

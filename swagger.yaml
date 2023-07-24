@@ -11,27 +11,27 @@ paths:
             application/json:
               schema:
                 type: string
-  /suppliers:
+  /providers:
     post:
-      operationId: SuppliersController_createSupplier
-      summary: Create a new supplier
+      operationId: ProvidersController_createProvider
+      summary: Create a new provider
       parameters: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateSupplierDto'
+              $ref: '#/components/schemas/CreateProviderDto'
       responses:
         '201':
-          description: The create suppplier request has been successfully processed
+          description: The create provider request has been successfully processed
       tags: &ref_0
-        - supplier
+        - provider
       security: &ref_1
         - bearer: []
     get:
-      operationId: SuppliersController_readSupplier
-      summary: Get suppliers
+      operationId: ProvidersController_readSupplier
+      summary: Get providers
       parameters:
         - name: code
           required: false
@@ -65,19 +65,19 @@ paths:
             type: number
       responses:
         '200':
-          description: Returns an array of suppliers
+          description: Returns an array of providers
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Supplier'
+                  $ref: '#/components/schemas/Provider'
       tags: *ref_0
       security: *ref_1
-  /suppliers/{id}:
+  /providers/{id}:
     put:
-      operationId: SuppliersController_updateSupplier
-      summary: Update a supplier
+      operationId: ProvidersController_updateProvider
+      summary: Update a provider
       parameters:
         - name: id
           required: true
@@ -104,7 +104,7 @@ paths:
                   type: string
       responses:
         '200':
-          description: Supplier updated successfully
+          description: Provider updated successfully
           content:
             application/json:
               schema:
@@ -112,8 +112,8 @@ paths:
       tags: *ref_0
       security: *ref_1
     delete:
-      operationId: SuppliersController_deleteSupplier
-      summary: Delete a supplier
+      operationId: ProvidersController_deleteProvider
+      summary: Delete a provider
       parameters:
         - name: id
           required: true
@@ -121,7 +121,7 @@ paths:
           schema: {}
       responses:
         '200':
-          description: Supplier deleted successfully
+          description: Provider deleted successfully
           content:
             application/json:
               schema:
@@ -165,7 +165,7 @@ components:
       description: Enter JWT token
       in: header
   schemas:
-    CreateSupplierDto:
+    CreateProviderDto:
       type: object
       properties:
         name:
@@ -187,7 +187,7 @@ components:
     UpdateResult:
       type: object
       properties: {}
-    Supplier:
+    Provider:
       type: object
       properties:
         id:

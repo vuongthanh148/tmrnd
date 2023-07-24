@@ -10,8 +10,7 @@ import { JwtPayload } from '../jwt/jwt-payload';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(
-  ) { }
+  constructor() {}
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
@@ -19,8 +18,8 @@ export class JwtAuthGuard implements CanActivate {
     if (!token) throw new UnauthorizedException();
 
     try {
-      console.log("SECRET: ", process.env.JWT_SECRET)
-      const isVerified = jwt.verify(token, process.env.JWT_SECRET)
+      console.log('SECRET: ', process.env.JWT_SECRET);
+      const isVerified = jwt.verify(token, process.env.JWT_SECRET);
       if (!isVerified) throw new UnauthorizedException();
 
       const payload: any = jwt.decode(token);

@@ -1,7 +1,7 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { Sort } from 'src/utils/constant';
 
-export class ReadSupplierDto {
+export class ReadProviderDto {
   @IsString()
   @IsOptional()
   code?: string;

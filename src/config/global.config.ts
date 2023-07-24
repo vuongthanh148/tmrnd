@@ -5,11 +5,11 @@ export const GlobalConfig: Configs = {
     port: parseInt(process.env.PORT) || 2711,
   },
   auth: {
-    jwtSecret: process.env.JWT_SECRET
+    jwtSecret: process.env.JWT_SECRET,
   },
   redis: {
     host: process.env.REDIS_HOST,
-    port: parseInt(process.env.REDIS_PORT, 10)
+    port: parseInt(process.env.REDIS_PORT, 10),
   },
   postgres: {
     host: process.env.POSTGRES_HOST,
@@ -17,8 +17,8 @@ export const GlobalConfig: Configs = {
     username: process.env.POSTGRES_USERNAME,
     password: process.env.POSTGRES_PASSWORD,
     database: process.env.POSTGRES_DATABASE,
-  }
-}
+  },
+};
 
 export type Configs = {
   app: AppConfig;
@@ -31,7 +31,7 @@ export type AppConfig = {
   port: number;
 };
 export type AuthConfig = {
-  jwtSecret: string
+  jwtSecret: string;
 };
 export type RedisConfig = {
   host: string;
