@@ -10,12 +10,12 @@ import {
 import { IAddon } from './interfaces/add-on.interface';
 
 @Entity()
-export class Transaction extends BaseEntity {
+export class Rate extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column('jsonb', { nullable: false })
-  supplierIds: number[];
+  providerIds: number[];
 
   @Column()
   departure_post_code: number;

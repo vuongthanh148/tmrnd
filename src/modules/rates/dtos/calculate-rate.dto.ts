@@ -7,10 +7,10 @@ import {
 } from 'class-validator';
 import { IAddon } from '../interfaces/add-on.interface';
 
-export class CreateTransactionDto {
+export class CalculateRateDto {
   @IsArray()
   @IsNotEmpty()
-  supplierIds: number[];
+  providerIds: number[];
 
   @IsNumber()
   @IsNotEmpty()

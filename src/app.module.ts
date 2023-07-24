@@ -4,15 +4,16 @@ import { AppService } from './app.service';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './utils/exceptions/exception';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { SuppliersModule } from './modules/suppliers/providers.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TransactionsModule } from './modules/transactions/transactions.module';
+import { RatesModule } from './modules/rates/rates.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { LoggerModule } from 'nestjs-pino';
 import { LoggerMiddleware } from './middleware/logger.middleware';
-import { TransactionsController } from './modules/transactions/transactions.controller';
+import { RatesController } from './modules/rates/rates.controller';
 import { CacheMiddleware } from './middleware/cache.middleware';
 import globalConfig from './config/global.config';
+import databaseConfig from './database/database.config';
+import { ProvidersModule } from './modules/providers/providers.module';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import globalConfig from './config/global.config';
       envFilePath: [
         `${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`,
       ],
-      load: [globalConfig],
+      load: [globalConfig, databaseConfig],
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
@@ -35,8 +36,8 @@ import globalConfig from './config/global.config';
       inject: [ConfigService],
     }),
     LoggerModule.forRoot(),
-    SuppliersModule,
-    TransactionsModule,
+    ProvidersModule,
+    RatesModule,
   ],
   controllers: [AppController],
   providers: [
@@ -49,7 +50,7 @@ import globalConfig from './config/global.config';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes(TransactionsController);
-    consumer.apply(CacheMiddleware).forRoutes(TransactionsController);
+    consumer.apply(LoggerMiddleware).forRoutes(RatesController);
+    consumer.apply(CacheMiddleware).forRoutes(RatesController);
   }
 }
