@@ -15,7 +15,7 @@ const writeLogToFile = (fileName: string, log: any) => {
     JSON.stringify(log) + '\n',
     (err) => {
       if (err) {
-        console.error('Erorr of write log', err);
+        console.error('Error of write log', err);
       }
     },
   );

@@ -2,7 +2,6 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
-  Decimal128,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -14,38 +13,38 @@ export class Rate extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('jsonb', { nullable: false })
+  @Column('integer', { nullable: false, array: true, name: "provider_ids" })
   providerIds: number[];
 
-  @Column()
-  departure_post_code: number;
+  @Column('integer', { name: 'departure_post_code' })
+  departurePostCode: number;
 
-  @Column()
-  arrival_post_code: number;
+  @Column('integer', { name: 'arrival_post_code' })
+  arrivalPostCode: number;
 
-  @Column({ length: 50, nullable: true })
+  @Column('text', { name: "departure_state_name" })
   departure_state_name: string;
 
-  @Column({ length: 50, nullable: true })
-  departure_country_code: string;
+  @Column('text', { name: "departure_country_code" })
+  departureCountryCode: string;
 
-  @Column({ length: 50, nullable: true })
-  arrival_state_name: string;
+  @Column('text', { name: "arrival_state_name" })
+  arrivalStateName: string;
 
-  @Column({ length: 50, nullable: true })
-  arrival_country_code: string;
+  @Column('text', { name: "arrival_country_code" })
+  arrivalCountryCode: string;
 
-  @Column()
-  item_length: number;
+  @Column('int', { name: "item_length" })
+  itemLength: number;
 
-  @Column()
-  item_width: number;
+  @Column('int', { name: "item_width" })
+  itemWidth: number;
 
-  @Column()
-  item_height: number;
+  @Column('int', { name: "item_height" })
+  itemHeight: number;
 
-  @Column()
-  item_weight: number;
+  @Column('int', { name: "item_weight" })
+  itemWeight: number;
 
   @Column('jsonb', { nullable: true })
   addons: IAddon;

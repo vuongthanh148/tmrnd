@@ -38,6 +38,23 @@ I will use api get rate calculation to create request send to provider and hanld
 "parcel_weight": 4
 }
 
+{
+  "providerIds": [
+    1
+  ],
+  "departurePostCode": 10000,
+  "arrivalPostCode": 10000,
+  "departureStateName": "Kuala Lumpur",
+  "departureCountryCode": "MY",
+  "arrivalStateName": "Perlis",
+  "arrivalCountryCode": "MY",
+  "itemLength": 50,
+  "itemWidth": 50,
+  "itemHeight": 50,
+  "itemWeight": 20,
+  "addons": {}
+}
+
 ## Installation
 
 1. You need install docker and docker-compose follow docker documentation `https://docs.docker.com/engine/install`
@@ -46,4 +63,4 @@ I will use api get rate calculation to create request send to provider and hanld
 3. Then you can access domain `localhost:2711/api` to view the swagger documantation
 4. Call api to create new provider and then create rate calculation
 
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6IlVTRVIifQ.\_ejexsLxujrjAOlef5LfU8GjPhigK96y9qtUcNaxEKc
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6IkpvaG4gRG9lIn0.PlctSJVavVA8YPf-BpaMvAPMYTLB4EnqNZLFrZ4dPQg

@@ -131,14 +131,14 @@ paths:
   /rates:
     post:
       operationId: RatesController_createRate
-      summary: Create a new rate
+      summary: Create a new rate calculation
       parameters: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CalculateRateDto'
+              $ref: '#/components/schemas/CalculateRateDTO'
       responses:
         '201':
           description: The create rate request has been successfully processed
@@ -221,45 +221,45 @@ components:
         - status
         - createdAt
         - updatedAt
-    CalculateRateDto:
+    CalculateRateDTO:
       type: object
       properties:
         providerIds:
           type: array
           items:
             type: number
-        departure_post_code:
+        departurePostCode:
           type: number
-        arrival_post_code:
+        arrivalPostCode:
           type: number
-        departure_state_name:
+        departureStateName:
           type: string
-        departure_country_code:
+        departureCountryCode:
           type: string
-        arrival_state_name:
+        arrivalStateName:
           type: string
-        arrival_country_code:
+        arrivalCountryCode:
           type: string
-        item_length:
+        itemLength:
           type: number
-        item_width:
+        itemWidth:
           type: number
-        item_height:
+        itemHeight:
           type: number
-        item_weight:
+        itemWeight:
           type: number
         addons:
           type: object
       required:
         - providerIds
-        - departure_post_code
-        - arrival_post_code
-        - departure_state_name
-        - departure_country_code
-        - arrival_state_name
-        - arrival_country_code
-        - item_length
-        - item_width
-        - item_height
-        - item_weight
+        - departurePostCode
+        - arrivalPostCode
+        - departureStateName
+        - departureCountryCode
+        - arrivalStateName
+        - arrivalCountryCode
+        - itemLength
+        - itemWidth
+        - itemHeight
+        - itemWeight
         - addons

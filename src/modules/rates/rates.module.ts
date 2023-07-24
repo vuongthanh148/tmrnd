@@ -6,21 +6,14 @@ import { HttpModule } from '@nestjs/axios';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Rate } from './rates.entity';
 import { RateRepository } from './rates.repository';
-import { CityLink } from 'src/modules/rates/common/city-link';
-import { JT } from 'src/modules/rates/common/jt';
+import { ShippingServiceModule } from '../shipping-service/shipping-service.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Rate]), ProvidersModule, HttpModule],
+  imports: [TypeOrmModule.forFeature([Rate]), ProvidersModule, HttpModule, ShippingServiceModule],
   controllers: [RatesController],
   providers: [
     RatesService,
     RateRepository,
-    CityLink,
-    JT,
-    // {
-    //   provide: APP_INTERCEPTOR,
-    //   useClass: ResponseInterceptor,
-    // },
   ],
 })
-export class RatesModule {}
+export class RatesModule { }
