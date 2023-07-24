@@ -68,7 +68,7 @@ describe('ProvidersService', () => {
     });
   });
 
-  describe('updateSupplierById', () => {
+  describe('updateProviderById', () => {
     it('should update a provider by ID', async () => {
       const id = 1;
       const dataUpdate = {

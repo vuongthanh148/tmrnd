@@ -3,41 +3,41 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './utils/exceptions/exception';
-import { ConfigModule } from '@nestjs/config';
-import { SuppliersModule } from './modules/suppliers/providers.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TransactionsModule } from './modules/transactions/transactions.module';
+import { RatesModule } from './modules/rates/rates.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { LoggerModule } from 'nestjs-pino';
 import { LoggerMiddleware } from './middleware/logger.middleware';
-import { TransactionsController } from './modules/transactions/transactions.controller';
+import { RatesController } from './modules/rates/rates.controller';
 import { CacheMiddleware } from './middleware/cache.middleware';
+import globalConfig from './config/global.config';
+import databaseConfig from './database/database.config';
+import { ProvidersModule } from './modules/providers/providers.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `${process.cwd()}/src/config/envs/development.env`,
+      envFilePath: [
+        `${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`,
+      ],
+      load: [globalConfig, databaseConfig],
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: parseInt(process.env.POSTGRES_PORT, 10),
-      username: process.env.POSTGRES_USERNAME,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DATABASE,
-      entities: [__dirname + '/modules/**/*.entity{.ts,.js}'],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: (configService: ConfigService) =>
+        configService.get('postgres'),
+      inject: [ConfigService],
     }),
-    RedisModule.forRoot({
-      config: {
-        host: process.env.REDIS_HOST,
-        port: parseInt(process.env.REDIS_PORT, 10),
-      },
+    RedisModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        config: configService.get('redis'),
+      }),
+      inject: [ConfigService],
     }),
     LoggerModule.forRoot(),
-    SuppliersModule,
-    TransactionsModule,
+    ProvidersModule,
+    RatesModule,
   ],
   controllers: [AppController],
   providers: [
@@ -50,7 +50,7 @@ import { CacheMiddleware } from './middleware/cache.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes(TransactionsController);
-    consumer.apply(CacheMiddleware).forRoutes(TransactionsController);
+    consumer.apply(LoggerMiddleware).forRoutes(RatesController);
+    consumer.apply(CacheMiddleware).forRoutes(RatesController);
   }
 }

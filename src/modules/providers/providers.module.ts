@@ -11,4 +11,4 @@ import { Provider } from './providers.entity';
   providers: [ProvidersService, ProviderRepository],
   exports: [ProvidersService],
 })
-export class SuppliersModule {}
+export class ProvidersModule {}

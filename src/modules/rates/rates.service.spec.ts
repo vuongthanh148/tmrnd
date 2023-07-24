@@ -1,40 +1,40 @@
-import { TransactionsService } from './transactions.service';
-import { TransactionRepository } from './transactions.repository';
-import { CreateTransactionDto } from './dtos/create-transaction.dto';
-import { ProvidersService } from '../suppliers/providers.service';
-import { Provider } from '../suppliers/providers.entity';
+import { RatesService } from './rates.service';
+import { CalculateRateDto } from './dtos/calculate-rate.dto';
+import { ProvidersService } from '../providers/providers.service';
+import { Provider } from '../providers/providers.entity';
 import { ModuleRef } from '@nestjs/core';
+import { RateRepository } from './rates.repository';
 
-describe('TransactionsService', () => {
-  let transactionsService: TransactionsService;
-  let transactionRepositoryMock: TransactionRepository;
+describe('RatesService', () => {
+  let ratesService: RatesService;
+  let rateRepositoryMock: RateRepository;
   let providersServiceMock: ProvidersService;
   let moduleRefMock: ModuleRef;
 
   beforeEach(() => {
-    transactionRepositoryMock = {
+    rateRepositoryMock = {
       create: jest.fn(),
     } as any;
 
     providersServiceMock = {
-      getSupplierById: jest.fn(),
+      getProviderById: jest.fn(),
     } as any;
 
     moduleRefMock = {
       get: jest.fn(),
     } as any;
 
-    transactionsService = new TransactionsService(
-      transactionRepositoryMock,
+    ratesService = new RatesService(
+      rateRepositoryMock,
       providersServiceMock,
       moduleRefMock,
     );
   });
 
-  describe('createTransaction', () => {
-    it('should create a transaction and return data', async () => {
-      const transactionDto: CreateTransactionDto = {
-        supplierIds: [],
+  describe('createRateCalculation', () => {
+    it('should get rate calculation and return data', async () => {
+      const calculateRateDto: CalculateRateDto = {
+        providerIds: [],
         departure_post_code: 0,
         arrival_post_code: 0,
         departure_state_name: '',
@@ -48,28 +48,24 @@ describe('TransactionsService', () => {
         addons: undefined,
       };
 
-      const supplierIds = [];
-      const suppliers: Provider[] = [];
+      const providerIds = [];
+      const providers: Provider[] = [];
       const transformedData = {};
 
       (providersServiceMock.getProviderById as jest.Mock).mockResolvedValueOnce(
-        suppliers[0],
+        providers[0],
       );
       (moduleRefMock.get as jest.Mock).mockReturnValueOnce({
         transformResp: jest.fn().mockResolvedValueOnce(transformedData),
       });
 
-      const result = await transactionsService.createTransaction(
-        transactionDto,
-      );
-      expect(transactionRepositoryMock.create).toHaveBeenCalledWith(
-        transactionDto,
-      );
+      const result = await ratesService.createRate(calculateRateDto);
+      expect(rateRepositoryMock.create).toHaveBeenCalledWith(calculateRateDto);
     });
 
     it('should return data from cache if available', async () => {
-      const transactionDto: CreateTransactionDto = {
-        supplierIds: [],
+      const calculateRateDto: CalculateRateDto = {
+        providerIds: [],
         departure_post_code: 0,
         arrival_post_code: 0,
         departure_state_name: '',
@@ -83,12 +79,12 @@ describe('TransactionsService', () => {
         addons: undefined,
       };
 
-      expect(transactionRepositoryMock.create).not.toHaveBeenCalled();
+      expect(rateRepositoryMock.create).not.toHaveBeenCalled();
     });
 
     it('should throw an error if an exception occurs', async () => {
-      const transactionDto: CreateTransactionDto = {
-        supplierIds: [],
+      const calculateRateDto: CalculateRateDto = {
+        providerIds: [],
         departure_post_code: 1000,
         arrival_post_code: 1000,
         departure_state_name: '',
@@ -102,7 +98,7 @@ describe('TransactionsService', () => {
         addons: undefined,
       };
 
-      expect(transactionsService.createTransaction(transactionDto));
+      expect(ratesService.createRate(calculateRateDto));
     });
   });
 });

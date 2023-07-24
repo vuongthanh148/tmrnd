@@ -1,16 +1,16 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { CreateTransactionDto } from 'src/modules/transactions/dtos/create-transaction.dto';
-import { HTTPMethod } from '../../utils/constant';
-import { httpClient } from '../../utils/http-client';
-import { fileCommon } from '../../utils/file';
-import { generateLog } from '../../utils/logs';
+import { CalculateRateDto } from 'src/modules/rates/dtos/calculate-rate.dto';
+import { HTTPMethod } from '../../../utils/constant';
+import { httpClient } from '../../../utils/http-client';
+import { fileCommon } from '../../../utils/file';
+import { generateLog } from '../../../utils/logs';
 
 @Injectable()
 export class JT {
   constructor(private readonly httpService: HttpService) {}
 
-  public createRequest(input: CreateTransactionDto) {
+  public createRequest(input: CalculateRateDto) {
     return {
       shipping_rates_type: 'domestic',
       sender_postcode: input.departure_post_code,
@@ -25,7 +25,7 @@ export class JT {
   }
 
   public async transformResp(
-    input: CreateTransactionDto,
+    input: CalculateRateDto,
     url: string,
     code: string,
   ) {
@@ -50,7 +50,7 @@ export class JT {
         logsResp,
       );
     } catch (error) {
-      console.log('Error supplier J&T', error.message);
+      console.log('Error provider J&T', error.message);
     }
 
     return {

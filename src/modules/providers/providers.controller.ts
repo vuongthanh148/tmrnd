@@ -79,7 +79,7 @@ export class ProvidersController {
     type: Provider,
     isArray: true,
   })
-  public async readSupplier(
+  public async readProvider(
     @Query() filter: ReadProviderDto,
   ): Promise<Provider[]> {
     return await this.providersService.readProviderByCondition(filter);

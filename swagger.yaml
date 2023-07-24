@@ -30,7 +30,7 @@ paths:
       security: &ref_1
         - bearer: []
     get:
-      operationId: ProvidersController_readSupplier
+      operationId: ProvidersController_readProvider
       summary: Get providers
       parameters:
         - name: code
@@ -128,22 +128,22 @@ paths:
                 $ref: '#/components/schemas/'
       tags: *ref_0
       security: *ref_1
-  /transactions:
+  /rates:
     post:
-      operationId: TransactionsController_createTransaction
-      summary: Create a new transaction
+      operationId: RatesController_createRate
+      summary: Create a new rate
       parameters: []
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateTransactionDto'
+              $ref: '#/components/schemas/CalculateRateDto'
       responses:
         '201':
-          description: The create transaction request has been successfully processed
+          description: The create rate request has been successfully processed
       tags:
-        - transactions
+        - rates
       security:
         - bearer: []
 info:
@@ -221,10 +221,10 @@ components:
         - status
         - createdAt
         - updatedAt
-    CreateTransactionDto:
+    CalculateRateDto:
       type: object
       properties:
-        supplierIds:
+        providerIds:
           type: array
           items:
             type: number
@@ -251,7 +251,7 @@ components:
         addons:
           type: object
       required:
-        - supplierIds
+        - providerIds
         - departure_post_code
         - arrival_post_code
         - departure_state_name

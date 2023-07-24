@@ -19,7 +19,11 @@ export function generateSwaggerFile(app: INestApplication) {
     })
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 
   fs.writeFileSync('./swagger.yaml', yaml.dump(document));
 }
