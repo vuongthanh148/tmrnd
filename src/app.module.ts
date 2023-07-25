@@ -14,15 +14,13 @@ import databaseConfig from './database/database.config';
 import { ProvidersModule } from './modules/providers/providers.module';
 import { CacheMiddleware } from './common/middlewares/cache.middleware';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
-import { CityLinkModule } from './modules/shipping-service/city-link/city-link.module';
-import { JtModule } from './modules/shipping-service/jt/jt.module';
 import { ShippingServiceModule } from './modules/shipping-service/shipping-service.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: [
-        `${process.cwd()}/src/config/env/development.env`,
+        `${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`,
       ],
       load: [globalConfig, databaseConfig],
       isGlobal: true,
@@ -41,7 +39,7 @@ import { ShippingServiceModule } from './modules/shipping-service/shipping-servi
     LoggerModule.forRoot(),
     ProvidersModule,
     RatesModule,
-    ShippingServiceModule
+    ShippingServiceModule,
   ],
   controllers: [AppController],
   providers: [
