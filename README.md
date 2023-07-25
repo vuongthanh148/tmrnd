@@ -77,7 +77,7 @@ This project use design pattern singleton and dependency injection
 2. Move to the directory containing the code and run command: `docker-compose up -d` to start project
 3. Access swagger documenation at `http://localhost:8989/api`. We need to authorize with JWT token to be able to connect to service:
    > eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6IkpvaG4gRG9lIn0.PlctSJVavVA8YPf-BpaMvAPMYTLB4EnqNZLFrZ4dPQg
-4. Start making api call to [add providers](http://localhost:2711/api#/provider/ProvidersController_createProvider) and request for [rate calculation](http://localhost:2711/api#/rates/RatesController_createRate).
+4. Start making api call to [add providers](http://localhost:8989/api#/provider/ProvidersController_createProvider) and request for [rate calculation](http://localhost:8989/api#/rates/RatesController_createRate).
 
 ## Migration
 
