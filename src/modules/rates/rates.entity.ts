@@ -23,7 +23,7 @@ export class Rate extends BaseEntity {
   arrivalPostCode: number;
 
   @Column('text', { name: 'departure_state_name' })
-  departure_state_name: string;
+  departureStateName: string;
 
   @Column('text', { name: 'departure_country_code' })
   departureCountryCode: string;

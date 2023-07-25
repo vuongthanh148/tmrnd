@@ -16,7 +16,7 @@ export class RatesService {
 
   public async createRate(rate: CalculateRateRequestDTO) {
     try {
-      const rateEntity = new CalculateRateRequestDTO(rate).toEntity();
+      const rateEntity = new CalculateRateRequestDTO(rate);
       console.log({ rateEntity });
       this.rateRepository.create(rateEntity);
       const { providerIds } = rate;
