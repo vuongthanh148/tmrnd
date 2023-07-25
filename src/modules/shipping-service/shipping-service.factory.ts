@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CityLinkService } from 'src/modules/shipping-service/city-link/city-link.service';
-import { JtService } from 'src/modules/shipping-service/jt/jt.service';
+import { CityLinkService } from 'src/modules/shipping-service/providers/city-link/city-link.service';
+import { JtService } from 'src/modules/shipping-service/providers/jt/jt.service';
 import { ShippingServiceInterface } from './interfaces/shipping-service.interface';
 
 @Injectable()
