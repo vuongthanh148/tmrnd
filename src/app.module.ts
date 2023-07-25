@@ -2,24 +2,27 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_FILTER } from '@nestjs/core';
-import { AllExceptionsFilter } from './utils/exceptions/exception';
+import { AllExceptionsFilter } from './common/exceptions/exception';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RatesModule } from './modules/rates/rates.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { LoggerModule } from 'nestjs-pino';
-import { LoggerMiddleware } from './middleware/logger.middleware';
 import { RatesController } from './modules/rates/rates.controller';
-import { CacheMiddleware } from './middleware/cache.middleware';
 import globalConfig from './config/global.config';
 import databaseConfig from './database/database.config';
 import { ProvidersModule } from './modules/providers/providers.module';
+import { CacheMiddleware } from './common/middlewares/cache.middleware';
+import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { CityLinkModule } from './modules/shipping-service/city-link/city-link.module';
+import { JtModule } from './modules/shipping-service/jt/jt.module';
+import { ShippingServiceModule } from './modules/shipping-service/shipping-service.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: [
-        `${process.cwd()}/src/config/env/${process.env.NODE_ENV}.env`,
+        `${process.cwd()}/src/config/env/development.env`,
       ],
       load: [globalConfig, databaseConfig],
       isGlobal: true,
@@ -38,6 +41,7 @@ import { ProvidersModule } from './modules/providers/providers.module';
     LoggerModule.forRoot(),
     ProvidersModule,
     RatesModule,
+    ShippingServiceModule
   ],
   controllers: [AppController],
   providers: [

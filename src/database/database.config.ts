@@ -1,4 +1,3 @@
-// ../../dist/modules/suppliers/suppliers.entity
 export default () => ({
   redis: {
     host: process.env.REDIS_HOST,
@@ -13,5 +12,6 @@ export default () => ({
     database: process.env.POSTGRES_DATABASE,
     entities: [__dirname + '/../modules/**/*.entity{.ts,.js}'],
     synchronize: true,
+    migrations: [__dirname + '/migrations/**/*.ts']
   },
 });

@@ -6,52 +6,60 @@ import {
   IsString,
 } from 'class-validator';
 import { IAddon } from '../interfaces/add-on.interface';
+import { objectToSnake } from 'src/common/case-convert';
 
-export class CalculateRateDto {
+export class CalculateRateDTO {
+  constructor(input: object) {
+    Object.assign(this, input)
+  }
   @IsArray()
   @IsNotEmpty()
   providerIds: number[];
 
   @IsNumber()
+  @IsOptional()
+  departurePostCode: number;
+
+  @IsNumber()
+  @IsOptional()
+  arrivalPostCode: number;
+
+  @IsString()
+  @IsOptional()
+  departureStateName: string;
+
+  @IsString()
+  @IsOptional()
+  departureCountryCode: string;
+
+  @IsString()
+  @IsOptional()
+  arrivalStateName: string;
+
+  @IsString()
+  @IsOptional()
+  arrivalCountryCode: string;
+
+  @IsNumber()
+  @IsOptional()
+  itemLength: number;
+
+  @IsNumber()
+  @IsOptional()
+  itemWidth: number;
+
+  @IsNumber()
+  @IsOptional()
+  itemHeight: number;
+
+  @IsNumber()
   @IsNotEmpty()
-  departure_post_code: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  arrival_post_code: number;
-
-  @IsString()
-  @IsOptional()
-  departure_state_name: string;
-
-  @IsString()
-  @IsOptional()
-  departure_country_code: string;
-
-  @IsString()
-  @IsOptional()
-  arrival_state_name: string;
-
-  @IsString()
-  @IsOptional()
-  arrival_country_code: string;
-
-  @IsNumber()
-  @IsOptional()
-  item_length: number;
-
-  @IsNumber()
-  @IsOptional()
-  item_width: number;
-
-  @IsNumber()
-  @IsOptional()
-  item_height: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  item_weight: number;
+  itemWeight: number;
 
   @IsOptional()
   addons: IAddon;
+
+  toEntity() {
+    return objectToSnake(this)
+  }
 }

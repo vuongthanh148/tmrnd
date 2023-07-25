@@ -8,9 +8,9 @@ import {
 import { Redis } from 'ioredis';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { REDIS_SET_EXPIRED_TIME } from 'src/utils/constant';
-import { fileCommon } from 'src/utils/file';
-import { generateLog } from 'src/utils/logs';
+import { REDIS_SET_EXPIRED_TIME } from 'src/common/constant';
+import { fileCommon } from 'src/common/file';
+import { generateLog } from 'src/common/logs';
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {

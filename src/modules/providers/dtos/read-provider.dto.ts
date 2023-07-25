@@ -1,5 +1,5 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
-import { Sort } from 'src/utils/constant';
+import { Sort } from 'src/common/constant';
 
 export class ReadProviderDto {
   @IsString()

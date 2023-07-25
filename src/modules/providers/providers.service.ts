@@ -3,12 +3,12 @@ import { ProviderRepository } from './providers.repository';
 import { CreateProviderDto } from './dtos/create-provider.dto';
 import { Provider } from './providers.entity';
 import { UpdateResult } from 'typeorm';
-import { LIMIT, OFFSET } from '../../utils/constant';
 import { ReadProviderDto } from './dtos/read-provider.dto';
+import { OFFSET, LIMIT } from 'src/common/constant';
 
 @Injectable()
 export class ProvidersService {
-  constructor(private readonly providerRepository: ProviderRepository) {}
+  constructor(private readonly providerRepository: ProviderRepository) { }
 
   public async createNewProvider(
     newProvider: CreateProviderDto,
