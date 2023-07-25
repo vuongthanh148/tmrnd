@@ -5,7 +5,6 @@ import { generateSwaggerFile } from './swagger';
 import globalConfig from './config/global.config';
 
 async function bootstrap() {
-  console.log(globalConfig().app.port);
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   generateSwaggerFile(app);
   // app.useLogger(app.get(Logger));
