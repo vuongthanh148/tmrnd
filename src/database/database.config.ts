@@ -12,6 +12,6 @@ export default () => ({
     database: process.env.POSTGRES_DATABASE,
     entities: [__dirname + '/../modules/**/*.entity{.ts,.js}'],
     synchronize: true,
-    migrations: [__dirname + '/migrations/**/*.ts']
+    migrations: [__dirname + '/migrations/**/*.ts'],
   },
 });

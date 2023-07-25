@@ -8,7 +8,7 @@ import { OFFSET, LIMIT } from 'src/common/constant';
 
 @Injectable()
 export class ProvidersService {
-  constructor(private readonly providerRepository: ProviderRepository) { }
+  constructor(private readonly providerRepository: ProviderRepository) {}
 
   public async createNewProvider(
     newProvider: CreateProviderDto,

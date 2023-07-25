@@ -10,7 +10,7 @@ import { objectToSnake } from 'src/common/case-convert';
 
 export class CalculateRateDTO {
   constructor(input: object) {
-    Object.assign(this, input)
+    Object.assign(this, input);
   }
   @IsArray()
   @IsNotEmpty()
@@ -60,6 +60,6 @@ export class CalculateRateDTO {
   addons: IAddon;
 
   toEntity() {
-    return objectToSnake(this)
+    return objectToSnake(this);
   }
 }

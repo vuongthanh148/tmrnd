@@ -5,6 +5,6 @@ import { HttpModule } from '@nestjs/axios';
 @Module({
   imports: [HttpModule],
   providers: [JtService],
-  exports: [JtService]
+  exports: [JtService],
 })
-export class JtModule { }
+export class JtModule {}

@@ -1,29 +1,30 @@
 version: '3'
 services:
-  gateway:
+  backend:
     build: 
       context: ./
       dockerfile: Dockerfile
-    image: gateway:latest
-    container_name: gateway
+    image: backend:latest
+    container_name: backend
     environment:
-      PORT: '2711'
+      PORT: '8989'
       POSTGRES_USERNAME: 'postgres'
       POSTGRES_PASSWORD: 'postgres'
       POSTGRES_HOST: 'postgres'
       POSTGRES_PORT: '5432'
-      POSTGRES_DATABASE: 'gateway'
+      POSTGRES_DATABASE: 'postgres'
       REDIS_PORT: '6379'
       REDIS_HOST: 'redis'
+      JWT_SECRET: 'tmrnd'
     ports:
-      - "2711:2711"
+      - "8989:8989"
     volumes:
       - ./logs:/usr/src/app/src/logs
     depends_on:
       - postgres
       - redis
     networks:
-      - digital_backend_assignment
+      - tmrnd
 
   # postgres database
   postgres:
@@ -36,9 +37,9 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - postgres:/data/postgres123
+      - postgres:/data/postgres
     networks:
-      - digital_backend_assignment
+      - tmrnd
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
@@ -53,7 +54,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - digital_backend_assignment
+      - tmrnd
     volumes:
       - ./data/redis:/data
     restart: unless-stopped
@@ -64,7 +65,7 @@ services:
       retries: 5
 
 networks:
-  digital_backend_assignment:
+  tmrnd:
     driver: bridge
 
 volumes:

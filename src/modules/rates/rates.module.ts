@@ -9,11 +9,13 @@ import { RateRepository } from './rates.repository';
 import { ShippingServiceModule } from '../shipping-service/shipping-service.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Rate]), ProvidersModule, HttpModule, ShippingServiceModule],
-  controllers: [RatesController],
-  providers: [
-    RatesService,
-    RateRepository,
+  imports: [
+    TypeOrmModule.forFeature([Rate]),
+    ProvidersModule,
+    HttpModule,
+    ShippingServiceModule,
   ],
+  controllers: [RatesController],
+  providers: [RatesService, RateRepository],
 })
-export class RatesModule { }
+export class RatesModule {}

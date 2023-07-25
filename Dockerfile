@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose port
-EXPOSE 2711
+EXPOSE 8989
 
 # Creates a "dist" folder with the production build
 RUN npm run build

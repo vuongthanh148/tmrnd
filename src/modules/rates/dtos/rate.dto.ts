@@ -1,4 +1,4 @@
 export class RateDTO {
-    courier: string
-    rate: number
+  courier: string;
+  rate: number;
 }

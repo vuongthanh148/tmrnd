@@ -56,7 +56,6 @@ export class BaseRepository<T extends BaseEntity> {
     try {
       const docs = await this.genericRepository.create(model);
       return await docs.save();
-      // return await this.genericRepository.create(model);
     } catch (error) {
       throw new BadRequestException(error);
     }

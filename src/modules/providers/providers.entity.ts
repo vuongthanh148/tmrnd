@@ -1,4 +1,3 @@
-
 import { ProviderStatus } from 'src/common/constant';
 import {
   BaseEntity,
