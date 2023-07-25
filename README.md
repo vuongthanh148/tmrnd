@@ -46,6 +46,17 @@ To be able to connect with any provider from a single request, we will need a da
 }
 ```
 
+## Project Directory Structure
+I used design pattern singleton and dependency injection in my project, redis is caching database which help me hanlde the same request from client and avoid hitting many times into my database
+1. Database: config connection to database, implement migration and seed data
+2. Config: Mapping env into module
+3. Common: Middlewares, interceptors, decorators,... These are the common parts for the whole project
+4. Modules: contains all layers: - Controller: Receiving requests
+                                 - Service: Handling logic 
+                                 - Repository: Interacting with the database
+                                 - Entity: Refers to a class that represents a specific model or object in the application's domain
+5. Logs: Directory containing the project's logs
+
 ## Installation
 
 1. Install docker and docker-compose follow [docker documentation](https://docs.docker.com/engine/install)
