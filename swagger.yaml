@@ -138,7 +138,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CalculateRateDTO'
+              $ref: '#/components/schemas/CalculateRateRequestDTO'
       responses:
         '201':
           description: The create rate request has been successfully processed
@@ -221,7 +221,7 @@ components:
         - status
         - createdAt
         - updatedAt
-    CalculateRateDTO:
+    CalculateRateRequestDTO:
       type: object
       properties:
         providerIds:

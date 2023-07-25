@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ShippingServiceInterface } from 'src/modules/rates/interfaces/provider.interface';
-import { CalculateRateDTO } from 'src/modules/rates/dtos/calculate-rate.dto';
+import { ShippingServiceInterface } from 'src/modules/shipping-service/interfaces/shipping-service.interface';
+import { CalculateRateRequestDTO } from 'src/modules/rates/dtos/calculate-rate-request.dto';
 import { RateDTO } from 'src/modules/rates/dtos/rate.dto';
 import { fileCommon } from 'src/common/file';
 import { generateLog } from 'src/common/logs';
@@ -12,8 +12,12 @@ import { CityLinkRequestDTO } from '../city-link/dtos/city-link-request.dto';
 
 @Injectable()
 export class JtService implements ShippingServiceInterface {
-  constructor(private readonly httpService: HttpService) { }
-  async calculateRate(input: CalculateRateDTO, url: string, code: string): Promise<RateDTO> {
+  constructor(private readonly httpService: HttpService) {}
+  async calculateRate(
+    input: CalculateRateRequestDTO,
+    url: string,
+    code: string,
+  ): Promise<RateDTO> {
     const req = new CityLinkRequestDTO(input).toRequest();
     // const req = new JTRequestDTO(input).toRequest();
     let resp: any;
@@ -41,10 +45,7 @@ export class JtService implements ShippingServiceInterface {
       };
     } catch (error) {
       console.log('Error provider J&T', error.message);
-      throw error
+      throw error;
     }
-
-
   }
-
 }

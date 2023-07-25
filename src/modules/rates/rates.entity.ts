@@ -6,14 +6,14 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IAddon } from './interfaces/add-on.interface';
+import { IAddon } from '../shipping-service/interfaces/add-on.interface';
 
 @Entity()
 export class Rate extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('integer', { nullable: false, array: true, name: "provider_ids" })
+  @Column('integer', { nullable: false, array: true, name: 'provider_ids' })
   providerIds: number[];
 
   @Column('integer', { name: 'departure_post_code' })
@@ -22,28 +22,28 @@ export class Rate extends BaseEntity {
   @Column('integer', { name: 'arrival_post_code' })
   arrivalPostCode: number;
 
-  @Column('text', { name: "departure_state_name" })
+  @Column('text', { name: 'departure_state_name' })
   departure_state_name: string;
 
-  @Column('text', { name: "departure_country_code" })
+  @Column('text', { name: 'departure_country_code' })
   departureCountryCode: string;
 
-  @Column('text', { name: "arrival_state_name" })
+  @Column('text', { name: 'arrival_state_name' })
   arrivalStateName: string;
 
-  @Column('text', { name: "arrival_country_code" })
+  @Column('text', { name: 'arrival_country_code' })
   arrivalCountryCode: string;
 
-  @Column('int', { name: "item_length" })
+  @Column('int', { name: 'item_length' })
   itemLength: number;
 
-  @Column('int', { name: "item_width" })
+  @Column('int', { name: 'item_width' })
   itemWidth: number;
 
-  @Column('int', { name: "item_height" })
+  @Column('int', { name: 'item_height' })
   itemHeight: number;
 
-  @Column('int', { name: "item_weight" })
+  @Column('int', { name: 'item_weight' })
   itemWeight: number;
 
   @Column('jsonb', { nullable: true })
