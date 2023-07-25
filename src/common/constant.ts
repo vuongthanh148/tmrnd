@@ -2,12 +2,6 @@ export enum ProviderStatus {
   INACTIVE,
   ACTIVE,
 }
-
-export enum ProviderCode {
-  JT = 'JT',
-  CityLink = 'CityLink',
-}
-
 export const OFFSET = 0;
 
 export const LIMIT = 10;

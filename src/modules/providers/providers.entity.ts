@@ -1,4 +1,4 @@
-import { ProviderStatus } from 'src/common/constant';
+import { ProviderStatus } from '../../common/constant';
 import {
   BaseEntity,
   Column,

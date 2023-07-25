@@ -1,47 +1,37 @@
-# hyperleger-indy-regov
+# TMR&D Technical Assignment
 
-The basic flow of api gateway to make calls to api of various providers and return standard form data to frontend.
+The basic flow of api gateway to make calls to third party providers and get return rate data to FE.
 
 ## Solution Overview
 
-First, when there is a new provider that needs to be integrated into the system, you must add a new provider with the data they provide, note that the provider's code field is the field that I specified, so when adding it, you need to add it. the standard form because it will have the same name as the class that I will handle the logic in the code, Here is a sample request for adding a new provider:
-`{
-    "name": "city-link",
-    "code": "CityLink",
-    "apiKey": "citylinkapikey",
-    "url": "https://www.citylinkexpress.com/wp-json/wp/v2/getShippingRate"
-}` and
-`{
-    "name": "J & T",
-    "code": "JT",
-    "apiKey": "jttestapikey",
-    "url": "https://www.citylinkexpress.com/wp-json/wp/v2/getShippingRate"
-}`
+Whenever we want to integrate with a new provider, we need to add provider information to database.
+This information must have the provider's code that's unique between providers. We will need this code later on when we want to pick any provider to interact.
 
-You can read, update or delete provider which I created in my project
+Example of provider data that can be added:
 
-Because I only get the actual call data on `the city link's page (J&T's site they don't have a public access to access)`, so `instead of mocking the data for J&T I will take the City Link link to call J&T`. The important thing I want to show here is that when there are many new providers I will also be able to handle my project well
-
-I will use api get rate calculation to create request send to provider and hanlde it. This is the sample of request:
-
-{
-"origin_country": "MY",
-"origin_state": "Kuala Lumpur",
-"origin_postcode": 10000,
-"destination_country": "MY",
-"destination_state": "Perlis",
-"destination_postcode": 10000,
-"length": 39,
-"width": 30,
-"height": 50,
-"selected_type": 1,
-"parcel_weight": 4
+```json
+For CityLink: {
+"name": "city-link",
+"code": "CityLink",
+"apiKey": "citylinkapikey",
+"url": "https://www.citylinkexpress.com/wp-json/wp/v2/getShippingRate"
 }
 
+For JT: {
+"name": "J & T",
+"code": "JT",
+"apiKey": "jttestapikey",
+"url": "https://www.citylinkexpress.com/wp-json/wp/v2/getShippingRate"
+}
+```
+
+_For JT provider, we are using the same url as CityLink provider as JT API is not open for any outside access. Therefore the rate data will be the same for both provider._
+
+To be able to connect with any provider from a single request, we will need a data schema that can be match with any provider that we're integrating. Example of request data base on this schema like below:
+
+```json
 {
-  "providerIds": [
-    1
-  ],
+  "providerIds": [1],
   "departurePostCode": 10000,
   "arrivalPostCode": 10000,
   "departureStateName": "Kuala Lumpur",
@@ -54,13 +44,26 @@ I will use api get rate calculation to create request send to provider and hanld
   "itemWeight": 20,
   "addons": {}
 }
+```
 
 ## Installation
 
-1. You need install docker and docker-compose follow docker documentation `https://docs.docker.com/engine/install`
-
+1. Install docker and docker-compose follow [docker documentation](https://docs.docker.com/engine/install)
 2. Move to the directory containing the code and run command: `docker-compose up -d` to start project
-3. Then you can access domain `localhost:2711/api` to view the swagger documantation
-4. Call api to create new provider and then create rate calculation
+3. Access swagger documenation at `http://localhost:8989/api`. We need to authorize with JWT token to be able to connect to service:
+   > eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6IkpvaG4gRG9lIn0.PlctSJVavVA8YPf-BpaMvAPMYTLB4EnqNZLFrZ4dPQg
+4. Start making api call to [add providers](http://localhost:2711/api#/provider/ProvidersController_createProvider) and request for [rate calculation](http://localhost:2711/api#/rates/RatesController_createRate).
 
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjM0NTY3ODkwIiwicm9sZSI6IkpvaG4gRG9lIn0.PlctSJVavVA8YPf-BpaMvAPMYTLB4EnqNZLFrZ4dPQg
+## Migration
+
+### Generate new migration
+
+1. Run command in terminal to generate new migration file:
+   > npm run migration:genereate \<migration-name\>
+2. New migration file will be generated inside src folder. You need to drag it into directory: `src/database/migrations`. Otherwise we cannot apply this migration file.
+
+### Apply migration
+
+Run command in terminal:
+
+> npm run migration:run
